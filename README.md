@@ -5,13 +5,13 @@ Aplicação mobile desenvolvida em React Native criada para demonstrar a integra
 O objetivo desta aplicação é servir como um projeto de referência (Proof of Concept) para a implementação de sistemas de notificações push em dispositivos iOS e Android, cobrindo o fluxo completo desde a permissão do usuário até o recebimento e manipulação do payload da notificação.
 
 ## ✨ Funcionalidades
-### 🔔 Solicitação de Permissões: Tratamento de permissões nativas de notificação no iOS e Android.
+🔔 Solicitação de Permissões: Tratamento de permissões nativas de notificação no iOS e Android.
 
-### 🔑 Obtenção de Push Token: Geração e manipulação do token do dispositivo para envio de alertas.
+🔑 Obtenção de Push Token: Geração e manipulação do token do dispositivo para envio de alertas.
 
-### 📬 Notificações em Foreground/Background: Recebimento e renderização de mensagens com o app aberto ou em segundo plano.
+📬 Notificações em Foreground/Background: Recebimento e renderização de mensagens com o app aberto ou em segundo plano.
 
-### ⚙️ Manipulação de Payloads: Tratamento de dados recebidos para navegação direta ou ações específicas.
+⚙️ Manipulação de Payloads: Tratamento de dados recebidos para navegação direta ou ações específicas.
 
 ## 🛠️ Tecnologias Utilizadas
 Framework: React Native / Expo
