@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,16 +8,27 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
+  TextInput,
 } from 'react-native';
 import { useNotificacoes } from '../hooks/useNOTIF';
 
 export default function TelaPrincipal() {
+  const [titulo, setTitulo] = useState('');
+  const [mensagem, setMensagem] = useState('');
+
   const {
     carregando,
     mensagemStatus,
     ultimaNotificacao,
     dispararAlerta,
   } = useNotificacoes();
+
+  const handleEnviar = async () => {
+    await dispararAlerta(titulo, mensagem);
+    // Opcional: limpa os campos após o envio bem-sucedido
+    setTitulo('');
+    setMensagem('');
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -38,17 +49,37 @@ export default function TelaPrincipal() {
 
         {/* CABEÇALHO */}
         <View style={styles.header}>
-          <Text style={styles.titulo}>Teste de Notificações</Text>
+          <Text style={styles.titulo}>Enviar Notificação</Text>
           <Text style={styles.subtitulo}>
-            Envie uma notificação para os dispositivos conectados.
+            Digite os dados abaixo para publicar um alerta em tempo real no Firestore.
           </Text>
         </View>
 
-        {/* CARD COM BOTÃO DE AÇÃO */}
+        {/* CARD COM FORMULÁRIO */}
         <View style={styles.card}>
+          <Text style={styles.label}>Título</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Ex: Novo Alerta de Segurança"
+            placeholderTextColor="#94A3B8"
+            value={titulo}
+            onChangeText={setTitulo}
+          />
+
+          <Text style={styles.label}>Mensagem</Text>
+          <TextInput
+            style={[styles.input, styles.inputMultiline]}
+            placeholder="Ex: Identificado um comportamento incomum..."
+            placeholderTextColor="#94A3B8"
+            value={mensagem}
+            onChangeText={setMensagem}
+            multiline
+            numberOfLines={3}
+          />
+
           <TouchableOpacity
             style={[styles.botao, carregando && styles.botaoDesabilitado]}
-            onPress={dispararAlerta}
+            onPress={handleEnviar}
             disabled={carregando}
             activeOpacity={0.8}
           >
@@ -95,11 +126,31 @@ const styles = StyleSheet.create({
     padding: 24,
     elevation: 3,
   },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#334155',
+    marginBottom: 6,
+  },
+  input: {
+    backgroundColor: '#F1F5F9',
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    fontSize: 15,
+    color: '#0F172A',
+    marginBottom: 16,
+  },
+  inputMultiline: {
+    height: 80,
+    textAlignVertical: 'top',
+  },
   botao: {
     backgroundColor: '#4F46E5',
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
+    marginTop: 8,
   },
   botaoDesabilitado: { backgroundColor: '#818CF8' },
   textoBotao: { color: '#FFFFFF', fontSize: 18, fontWeight: '600' },
@@ -110,5 +161,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
   },
-  textoStatus: { color: '#3730A3', fontSize: 14, fontWeight: '500' },
+  textoStatus: { color: '#3730A3', fontSize: 14, fontWeight: '500', textAlign: 'center' },
 });
