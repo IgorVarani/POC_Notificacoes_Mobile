@@ -9,22 +9,33 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
+import { useNotificacoes } from '../hooks/useNOTIF';
 
 export default function TelaPrincipal() {
+  const {
+    carregando,
+    mensagemStatus,
+    ultimaNotificacao,
+    dispararAlerta,
+  } = useNotificacoes();
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor="#F8FAFC" />
       <ScrollView contentContainerStyle={styles.container}>
 
         {/* BANNER DE NOTIFICAÇÃO FLUTUANTE */}
+        {ultimaNotificacao && (
           <View style={styles.bannerNotificacao}>
             <View style={styles.bannerHeader}>
               <Text style={styles.bannerTag}>🔔 NOTIFICAÇÃO RECEBIDA</Text>
-              <Text style={styles.bannerHora}>hora</Text>
+              <Text style={styles.bannerHora}>{ultimaNotificacao.hora}</Text>
             </View>
-            <Text style={styles.bannerTitulo}>titulo</Text>
-            <Text style={styles.bannerMensagem}>mensagem</Text>
+            <Text style={styles.bannerTitulo}>{ultimaNotificacao.titulo}</Text>
+            <Text style={styles.bannerMensagem}>{ultimaNotificacao.mensagem}</Text>
           </View>
+        )}
+
         {/* CABEÇALHO */}
         <View style={styles.header}>
           <Text style={styles.titulo}>Teste de Notificações</Text>
@@ -36,16 +47,23 @@ export default function TelaPrincipal() {
         {/* CARD COM BOTÃO DE AÇÃO */}
         <View style={styles.card}>
           <TouchableOpacity
-            style={styles.botao}
+            style={[styles.botao, carregando && styles.botaoDesabilitado]}
+            onPress={dispararAlerta}
+            disabled={carregando}
             activeOpacity={0.8}
           >
+            {carregando ? (
               <ActivityIndicator color="#FFFFFF" size="small" />
+            ) : (
               <Text style={styles.textoBotao}>Disparar Alerta</Text>
+            )}
           </TouchableOpacity>
 
+          {mensagemStatus ? (
             <View style={styles.statusContainer}>
-              <Text style={styles.textoStatus}>mensagem</Text>
+              <Text style={styles.textoStatus}>{mensagemStatus}</Text>
             </View>
+          ) : null}
         </View>
 
       </ScrollView>

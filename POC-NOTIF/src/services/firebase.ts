@@ -2,12 +2,13 @@ import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_PROJECT_ID.firebaseapp.com",
-  projectId: "SEU_PROJECT_ID",
-  storageBucket: "SEU_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-  appId: "SEU_APP_ID"
+  apiKey: "AIzaSyD65ch1YJWV69PxhNu_y6v054w8wPdCdkU",
+  authDomain: "poc-notificacoes-mobile.firebaseapp.com",
+  projectId: "poc-notificacoes-mobile",
+  storageBucket: "poc-notificacoes-mobile.firebasestorage.app",
+  messagingSenderId: "832995463451",
+  appId: "1:832995463451:web:ac54bed4147ffb4943c3be",
+  measurementId: "G-7ZEMXZP4ZR"
 };
 
 // Evita re-inicialização do app durante hot-reloads no Expo
